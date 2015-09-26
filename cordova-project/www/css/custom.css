@@ -1,4 +1,4 @@
-﻿* {
+* {
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
     margin:0px;
     padding:0px;
@@ -7,20 +7,6 @@
 .ui-page, .ui-body-c, .ui-page-active
 {
     background: transparent !important;
-}
-
-body, .ui-overlay-c {
-    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
-    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
-    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    background: url('../img/intro.png') repeat center bottom !important;
-    background-attachment:fixed !important;
-    background-size:100% 100% !important;
-    height:100%;
-	width:100%;
-}
-h1,h2,h3,h4,h5 {
-    color:#0071bc;
 }
 
 @font-face {
@@ -33,44 +19,27 @@ h1,h2,h3,h4,h5 {
    src: url(ZonaPro-Thin.otf);
 }
 
-.ui-btn-icon-notext.ui-corner-all {
-    -webkit-border-radius: .3125em;
-    border-radius: .3125em;
-}
-.ui-title {
-    color:#fff;
-}
-.mc-text-center {
-    text-align:center;
-}
-.mc-top-margin-1-5 {
-    margin-top:1.5em;
-}
-h2.mc-text-danger,
-h3.mc-text-danger  {
-    color:red;
+body, .ui-overlay-c {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    background: url('../img/intro.png') repeat center bottom !important;
+    background-attachment:fixed !important;
+    background-size:100% 100% !important;
+    height:100%;
+	width:100%;
 }
 
-.bi-invalid-input {
-    background-color:#fffacd!important;
+@keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
 }
-
-.bi-invisible {
-    display:none;
-}
-
-.bi-ctn-err {
-    background-color:#ffe1cd;
-    padding: 13px;
-    margin-bottom:.5em;
-    border: 1px solid #e9cfbd;
-    border-radius:3px 3px;
-	font-size: 15px;
-	font-family: ZonaPro-Bold;
-}
-
-.bi-header {
-    border: 0px; position: fixed; width: 100%; top: 0px; left: 0px; z-index: 21;
+ 
+@-webkit-keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
 }
 
 .button-fit{
@@ -114,4 +83,3 @@ h3.mc-text-danger  {
 	.content-primary3{margin-top: 30px;}
 	.logo3{margin-top:10px;width: 100%;}
 }
-

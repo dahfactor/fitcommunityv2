@@ -45,7 +45,7 @@ app.signupController = new BookIt.SignUpController();
 $(document).on("pagecontainerbeforeshow", function (event, ui) {
     if (typeof ui.toPage == "object") {
         switch (ui.toPage.attr("id")) {
-            case "page-signup":
+            case "page-signup-email":
                 // Reset the signup form.
                 app.signupController.resetSignUpForm();
                 break;
@@ -53,7 +53,7 @@ $(document).on("pagecontainerbeforeshow", function (event, ui) {
     }
 });
 
-$(document).delegate("#page-signup", "pagebeforecreate", function () {
+$(document).delegate("#page-signup-email", "pagebeforecreate", function () {
 
     app.signupController.init();
 
