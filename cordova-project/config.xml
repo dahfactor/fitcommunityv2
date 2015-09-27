@@ -7,7 +7,7 @@
     <author email="miamicoder@gmail.com" href="http://miamicoder.com">
         
     </author>
-    <content src="/www/index.html" />
+    <content src="index.html" />
     <access origin="*" />
 
     <preference name="StatusBarOverlaysWebView" value="false"></preference>

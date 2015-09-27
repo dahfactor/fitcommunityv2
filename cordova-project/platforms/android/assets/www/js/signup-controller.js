@@ -190,9 +190,9 @@ BookIt.SignUpController.prototype.onSignupCommand = function () {
         type: 'POST',
         url: BookIt.Settings.signUpUrl,
         data: "email=" + emailAddress + "&name=" + name + "&password=" + password + "&age=" + age + "&gender=" + gender,
-        success: function (message) {
-			console.log(message);
-			if(message == 1){
+        success: function (data) {
+			console.log(data.status);
+			if(data.status == 1){
 				me.$ctnErr.html("<p>Error: Email already exists!</p>");
 				me.$ctnErr.addClass("bi-ctn-err").slideDown();
 				me.$txtPassword.addClass(invalidInputStyle);
@@ -204,9 +204,10 @@ BookIt.SignUpController.prototype.onSignupCommand = function () {
 				return;
 			}
         },
-        error: function () {
+        error: function (data) {
+			console.log(data.status);
             // TODO: Use a friendlier error message below.
-            me.$ctnErr.html("<p>Oops! FitCommunity had a problem and could not register you.  Please try again in a few minutes.</p>");
+            me.$ctnErr.html(data.status);
             me.$ctnErr.addClass("bi-ctn-err").slideDown();
 			$('html, body').animate({ scrollTop: 0 }, 'slow');
         }

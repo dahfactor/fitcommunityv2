@@ -1,4 +1,5 @@
 <?php 
+header('Content-type: application/json');
 //$server = "localhost";
 //$username = "root";
 //$password = "";
@@ -27,18 +28,20 @@ $sqlcheck = mysql_query("SELECT * from accounts where email = '$email'", $con);
 $sqlcheckcount = mysql_num_rows($sqlcheck);
 
 if ($sqlcheckcount > 0){
-	$message = 1;
-	echo json_encode($message);
+	$response_array['status'] = 1;  
+	echo json_encode($response_array);
 
 }else{
 
 	$sql = "INSERT INTO accounts (fullname, age, gender, email, password) VALUES ('$name', '$age', '$gender', '$email', '$password')";
 
-	if (!mysql_query($sql, $con)) {
-		die('Error: ' . mysql_error());
-	} else {
-		//success
+	if(mysql_query($sql)){
+		$response_array['status'] = 'success';  
+	}else {
+		$response_array['status'] = mysql_error();  
 	}
+	
+	echo json_encode($response_array);
 }
 
 mysql_close($con);

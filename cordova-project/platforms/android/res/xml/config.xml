@@ -15,7 +15,7 @@
     <author email="miamicoder@gmail.com" href="http://miamicoder.com">
        
     </author>
-    <content src="../../assets/www/index.html" />
+    <content src="index.html" />
     <access origin="*" />
     <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="StatusBarBackgroundColor" value="#662d91" />
