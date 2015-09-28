@@ -8,14 +8,14 @@
     <feature name="Notification">
         <param name="android-package" value="org.apache.cordova.dialogs.Notification" />
     </feature>
-    <name>BookIt</name>
+    <name>FitCommunity</name>
     <description>
-        A Meeting Rooms manager app.
+       
     </description>
     <author email="miamicoder@gmail.com" href="http://miamicoder.com">
-        Jorge Ramon - MiamiCoder.com
+       
     </author>
-    <content src="index.html" />
+    <content src="../../assets/www/index.html" />
     <access origin="*" />
     <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="StatusBarBackgroundColor" value="#662d91" />

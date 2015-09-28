@@ -35,8 +35,7 @@ if ($sqlcheckcount > 0){
 	$sql = "INSERT INTO accounts (fullname, age, gender, email, password) VALUES ('$name', '$age', '$gender', '$email', '$password')";
 
 	if (!mysql_query($sql, $con)) {
-		$message = die('Error: ' . mysql_error());
-		echo json_encode($message);
+		die('Error: ' . mysql_error());
 	} else {
 		//success
 	}
