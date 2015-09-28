@@ -188,10 +188,10 @@ BookIt.SignUpController.prototype.onSignupCommand = function () {
 
     $.ajax({
         type: 'POST',
-        url: 'http://fit.comuf.com/register.php',
+        url: BookIt.Settings.signUpUrl,
         data: "email=" + emailAddress + "&name=" + name + "&password=" + password + "&age=" + age + "&gender=" + gender,
         success: function (message) {
-			//console.log(message);
+			console.log(message);
 			if(message == 1){
 				me.$ctnErr.html("<p>Error: Email already exists!</p>");
 				me.$ctnErr.addClass("bi-ctn-err").slideDown();
@@ -211,4 +211,6 @@ BookIt.SignUpController.prototype.onSignupCommand = function () {
 			$('html, body').animate({ scrollTop: 0 }, 'slow');
         }
     });
+	
+	return false;
 };
