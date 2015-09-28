@@ -8,8 +8,8 @@
         
     </author>
     <content src="/www/index.html" />
-    <access origin="http://fit.comuf.com" />
-	<access origin="http://mysql5.000webhost.com" />
+    <access origin="http://*" />
+	<access origin="https://*" />
 	
     <preference name="StatusBarOverlaysWebView" value="false"></preference>
     <preference name="StatusBarBackgroundColor" value="#662d91"></preference>
