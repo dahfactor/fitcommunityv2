@@ -127,14 +127,14 @@ BookIt.SignUpController.prototype.onSignupCommand = function () {
 
     // Make sure that all the required fields have values.
     if (invalidInput) {
-        me.$ctnErr.html("<p>Please enter all the required fields.</p>");
+        me.$ctnErr.html("<p>Error: Please enter all the required fields!</p>");
         me.$ctnErr.addClass("bi-ctn-err").slideDown();
 		$('html, body').animate({ scrollTop: 0 }, 'slow');
         return;
     }
 
     if (!me.emailAddressIsValid(emailAddress)) {
-        me.$ctnErr.html("<p>Please enter a valid email address.</p>");
+        me.$ctnErr.html("<p>Error: Please enter a valid email address!</p>");
         me.$ctnErr.addClass("bi-ctn-err").slideDown();
         me.$txtEmailAddress.addClass(invalidInputStyle);
 		$('html, body').animate({ scrollTop: 0 }, 'slow');
@@ -142,34 +142,7 @@ BookIt.SignUpController.prototype.onSignupCommand = function () {
     }
 
     if (!me.passwordsMatch(password, passwordConfirm)) {
-        me.$ctnErr.html("<p>Your passwords don't match.</p>");
-        me.$ctnErr.addClass("bi-ctn-err").slideDown();
-        me.$txtPassword.addClass(invalidInputStyle);
-        me.$txtPasswordConfirm.addClass(invalidInputStyle);
-		$('html, body').animate({ scrollTop: 0 }, 'slow');
-        return;
-    }
-
-    if (!me.passwordIsComplexNumber(password)) {
-        me.$ctnErr.html("<p>Error: password must contain at least one number (0-9)!</p>");
-        me.$ctnErr.addClass("bi-ctn-err").slideDown();
-        me.$txtPassword.addClass(invalidInputStyle);
-        me.$txtPasswordConfirm.addClass(invalidInputStyle);
-		$('html, body').animate({ scrollTop: 0 }, 'slow');
-        return;
-    }
-	
-	if (!me.passwordIsComplexSmallLetter(password)) {
-        me.$ctnErr.html("<p>Error: password must contain at least one lowercase letter (a-z)!</p>");
-        me.$ctnErr.addClass("bi-ctn-err").slideDown();
-        me.$txtPassword.addClass(invalidInputStyle);
-        me.$txtPasswordConfirm.addClass(invalidInputStyle);
-		$('html, body').animate({ scrollTop: 0 }, 'slow');
-        return;
-    }
-	
-	if (!me.passwordIsComplexCapitalLetter(password)) {
-        me.$ctnErr.html("<p>Error: password must contain at least one uppercase letter (A-Z)!</p>");
+        me.$ctnErr.html("<p>Error: Your passwords don't match!</p>");
         me.$ctnErr.addClass("bi-ctn-err").slideDown();
         me.$txtPassword.addClass(invalidInputStyle);
         me.$txtPasswordConfirm.addClass(invalidInputStyle);
@@ -185,39 +158,57 @@ BookIt.SignUpController.prototype.onSignupCommand = function () {
 		$('html, body').animate({ scrollTop: 0 }, 'slow');
         return;
     }
+	
+	if (!me.passwordIsComplexSmallLetter(password)) {
+        me.$ctnErr.html("<p>Error: Password must contain at least one lowercase letter (a-z)!</p>");
+        me.$ctnErr.addClass("bi-ctn-err").slideDown();
+        me.$txtPassword.addClass(invalidInputStyle);
+        me.$txtPasswordConfirm.addClass(invalidInputStyle);
+		$('html, body').animate({ scrollTop: 0 }, 'slow');
+        return;
+    }
+	
+	if (!me.passwordIsComplexCapitalLetter(password)) {
+        me.$ctnErr.html("<p>Error: Password must contain at least one uppercase letter (A-Z)!</p>");
+        me.$ctnErr.addClass("bi-ctn-err").slideDown();
+        me.$txtPassword.addClass(invalidInputStyle);
+        me.$txtPasswordConfirm.addClass(invalidInputStyle);
+		$('html, body').animate({ scrollTop: 0 }, 'slow');
+        return;
+    }
+
+    if (!me.passwordIsComplexNumber(password)) {
+        me.$ctnErr.html("<p>Error: Password must contain at least one number (0-9)!</p>");
+        me.$ctnErr.addClass("bi-ctn-err").slideDown();
+        me.$txtPassword.addClass(invalidInputStyle);
+        me.$txtPasswordConfirm.addClass(invalidInputStyle);
+		$('html, body').animate({ scrollTop: 0 }, 'slow');
+        return;
+    }
 
     $.ajax({
         type: 'POST',
         url: BookIt.Settings.signUpUrl,
         data: "email=" + emailAddress + "&name=" + name + "&password=" + password + "&age=" + age + "&gender=" + gender,
-        success: function (resp) {
-
-            if (resp.success === true) {
-                $.mobile.navigate("#page-signup-email-succeeded");
-                return;
-            } else {
-                if (resp.extras.msg) {
-                    switch (resp.extras.msg) {
-                        case BookIt.ApiMessages.DB_ERROR:
-                        case BookIt.ApiMessages.COULD_NOT_CREATE_USER:
-                            // TODO: Use a friendlier error message below.
-                            me.$ctnErr.html("<p>Oops! BookIt had a problem and could not register you.  Please try again in a few minutes.</p>");
-                            me.$ctnErr.addClass("bi-ctn-err").slideDown();
-                            break;
-                        case BookIt.ApiMessages.EMAIL_ALREADY_EXISTS:
-                            me.$ctnErr.html("<p>The email address that you provided is already registered.</p>");
-                            me.$ctnErr.addClass("bi-ctn-err").slideDown();
-                            me.$txtEmailAddress.addClass(invalidInputStyle);
-                            break;
-                    }
-                }
-            }
+        success: function (message) {
+			console.log(message);
+			if(message == 1){
+				me.$ctnErr.html("<p>Error: Email already exists!</p>");
+				me.$ctnErr.addClass("bi-ctn-err").slideDown();
+				me.$txtPassword.addClass(invalidInputStyle);
+				me.$txtPasswordConfirm.addClass(invalidInputStyle);
+				$('html, body').animate({ scrollTop: 0 }, 'slow');
+				return;
+			}else{
+				$.mobile.navigate("#page-signup-succeeded");
+				return;
+			}
         },
-        error: function (e) {
-            console.log(e.message);
+        error: function () {
             // TODO: Use a friendlier error message below.
-            me.$ctnErr.html("<p>Oops! BookIt had a problem and could not register you.  Please try again in a few minutes.</p>");
+            me.$ctnErr.html("<p>Oops! FitCommunity had a problem and could not register you.  Please try again in a few minutes.</p>");
             me.$ctnErr.addClass("bi-ctn-err").slideDown();
+			$('html, body').animate({ scrollTop: 0 }, 'slow');
         }
     });
 };
