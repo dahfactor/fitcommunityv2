@@ -204,9 +204,9 @@ BookIt.SignUpController.prototype.onSignupCommand = function () {
 				return;
 			}
         },
-        error: function () {
+        error: function (e) {
             // TODO: Use a friendlier error message below.
-            me.$ctnErr.html("<p>Oops! FitCommunity had a problem and could not register you.  Please try again in a few minutes.</p>");
+            me.$ctnErr.html(e.message);
             me.$ctnErr.addClass("bi-ctn-err").slideDown();
 			$('html, body').animate({ scrollTop: 0 }, 'slow');
         }
