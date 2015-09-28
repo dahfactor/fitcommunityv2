@@ -9,6 +9,7 @@
     </author>
     <content src="www/index.html" />
 
+	<preference name='phonegap-version' value='cli-5.1.1' />
     <preference name="StatusBarOverlaysWebView" value="false"></preference>
     <preference name="StatusBarBackgroundColor" value="#662d91"></preference>
 	
