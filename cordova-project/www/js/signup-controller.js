@@ -188,7 +188,7 @@ BookIt.SignUpController.prototype.onSignupCommand = function () {
 
     $.ajax({
         type: 'POST',
-        url: BookIt.Settings.signUpUrl,
+        url: 'http://fit.comuf.com/register.php',
 		crossDomain: true,
         data: "email=" + emailAddress + "&name=" + name + "&password=" + password + "&age=" + age + "&gender=" + gender,
         success: function (data) {

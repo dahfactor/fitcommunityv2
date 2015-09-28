@@ -8,13 +8,11 @@
         
     </author>
     <content src="/www/index.html" />
-    <access origin="http://*" />
-	<access origin="https://*" />
-	
+
     <preference name="StatusBarOverlaysWebView" value="false"></preference>
     <preference name="StatusBarBackgroundColor" value="#662d91"></preference>
 	
-	<plugin name="cordova-plugin-whitelist" version="1" />
+	<plugin name="cordova-plugin-whitelist" version="1" source="npm" />
 	<allow-navigation href="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -29,4 +27,6 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
+	
+	<access origin="*" />
 </widget>
