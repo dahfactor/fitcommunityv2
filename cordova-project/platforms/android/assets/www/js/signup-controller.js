@@ -5,31 +5,55 @@ BookIt.SignUpController = function () {
     this.$signUpPage = null;
     this.$btnSubmit = null;
     this.$ctnErr = null;
-    this.$txtFirstName = null;
-    this.$txtLastName = null;
+    this.$txtName = null;
+	this.$txtAge = null;
+	this.$txtGender = null;
     this.$txtEmailAddress = null;
     this.$txtPassword = null;
     this.$txtPasswordConfirm = null;
 };
 
 BookIt.SignUpController.prototype.init = function () {
-    this.$signUpPage = $("#page-signup");
+    this.$signUpPage = $("#page-signup-email");
     this.$btnSubmit = $("#btn-submit", this.$signUpPage);
     this.$ctnErr = $("#ctn-err", this.$signUpPage);
-    this.$txtFirstName = $("#txt-first-name", this.$signUpPage);
-    this.$txtLastName = $("#txt-last-name", this.$signUpPage);
-    this.$txtEmailAddress = $("#txt-email-address", this.$signUpPage);
-    this.$txtPassword = $("#txt-password", this.$signUpPage);
-    this.$txtPasswordConfirm = $("#txt-password-confirm", this.$signUpPage);
+    this.$txtName = $("#name", this.$signUpPage);
+	this.$txtAge = $("#age", this.$signUpPage);
+	this.$txtGender = $("#gender", this.$signUpPage);
+    this.$txtEmailAddress = $("#email", this.$signUpPage);
+    this.$txtPassword = $("#password", this.$signUpPage);
+    this.$txtPasswordConfirm = $("#password1", this.$signUpPage);
 };
 
 BookIt.SignUpController.prototype.passwordsMatch = function (password, passwordConfirm) {
     return password === passwordConfirm;
 };
 
-BookIt.SignUpController.prototype.passwordIsComplex = function (password) {
-    // TODO: implement complex password rules here.  There should be similar rule on the server side.
-    return true;
+BookIt.SignUpController.prototype.passwordIsComplexNumber = function (password) {
+	 re = /[0-9]/;
+     if(re.test(password)) {
+        return true;
+     }
+};
+
+BookIt.SignUpController.prototype.passwordIsComplexCapitalLetter = function (password) {
+	 re = /[A-Z]/;
+     if(re.test(password)) {
+		return true;
+     }
+};
+
+BookIt.SignUpController.prototype.passwordIsComplexSmallLetter = function (password) {
+	 re = /[a-z]/;
+     if(re.test(password)) {
+       return true;
+     }
+};
+
+BookIt.SignUpController.prototype.passwordIsComplexLength = function (password) {
+     if(password.length >= 6) {
+       return true;
+     }
 };
 
 BookIt.SignUpController.prototype.emailAddressIsValid = function (email) {
@@ -44,14 +68,14 @@ BookIt.SignUpController.prototype.resetSignUpForm = function () {
 
     this.$ctnErr.html("");
     this.$ctnErr.removeClass().addClass(invisibleStyle);
-    this.$txtFirstName.removeClass(invalidInputStyle);
-    this.$txtLastName.removeClass(invalidInputStyle);
+    this.$txtName.removeClass(invalidInputStyle);
+	this.$txtAge.removeClass(invalidInputStyle);
     this.$txtEmailAddress.removeClass(invalidInputStyle);
     this.$txtPassword.removeClass(invalidInputStyle);
     this.$txtPasswordConfirm.removeClass(invalidInputStyle);
 
-    this.$txtFirstName.val("");
-    this.$txtLastName.val("");
+    this.$txtName.val("");
+	this.$txtAge.val("");
     this.$txtEmailAddress.val("");
     this.$txtPassword.val("");
     this.$txtPasswordConfirm.val("");
@@ -60,108 +84,131 @@ BookIt.SignUpController.prototype.resetSignUpForm = function () {
 
 BookIt.SignUpController.prototype.onSignupCommand = function () {
 
-    var firstName = this.$txtFirstName.val().trim(),
-        lastName = this.$txtLastName.val().trim(),
-        emailAddress = this.$txtEmailAddress.val().trim(),
-        password = this.$txtPassword.val().trim(),
-        passwordConfirm = this.$txtPasswordConfirm.val().trim(),
+    var me = this,
+        name = me.$txtName.val().trim(),
+		age = me.$txtAge.val().trim(),
+		gender = me.$txtGender.val().trim(),
+        emailAddress = me.$txtEmailAddress.val().trim(),
+        password = me.$txtPassword.val().trim(),
+        passwordConfirm = me.$txtPasswordConfirm.val().trim(),
         invalidInput = false,
         invisibleStyle = "bi-invisible",
         invalidInputStyle = "bi-invalid-input";
 
     // Reset styles.
-    this.$ctnErr.removeClass().addClass(invisibleStyle);
-    this.$txtFirstName.removeClass(invalidInputStyle);
-    this.$txtLastName.removeClass(invalidInputStyle);
-    this.$txtEmailAddress.removeClass(invalidInputStyle);
-    this.$txtPassword.removeClass(invalidInputStyle);
-    this.$txtPasswordConfirm.removeClass(invalidInputStyle);
+    me.$ctnErr.removeClass().addClass(invisibleStyle);
+    me.$txtName.removeClass(invalidInputStyle);
+	me.$txtAge.removeClass(invalidInputStyle);
+    me.$txtEmailAddress.removeClass(invalidInputStyle);
+    me.$txtPassword.removeClass(invalidInputStyle);
+    me.$txtPasswordConfirm.removeClass(invalidInputStyle);
 
     // Flag each invalid field.
-    if (firstName.length === 0) {
-        this.$txtFirstName.addClass(invalidInputStyle);
+    if (name.length === 0) {
+        me.$txtName.addClass(invalidInputStyle);
         invalidInput = true;
     }
-    if (lastName.length === 0) {
-        this.$txtLastName.addClass(invalidInputStyle);
+	if (age.length === 0) {
+        me.$txtAge.addClass(invalidInputStyle);
         invalidInput = true;
     }
     if (emailAddress.length === 0) {
-        this.$txtEmailAddress.addClass(invalidInputStyle);
+        me.$txtEmailAddress.addClass(invalidInputStyle);
         invalidInput = true;
     }
     if (password.length === 0) {
-        this.$txtPassword.addClass(invalidInputStyle);
+        me.$txtPassword.addClass(invalidInputStyle);
         invalidInput = true;
     }
     if (passwordConfirm.length === 0) {
-        this.$txtPasswordConfirm.addClass(invalidInputStyle);
+        me.$txtPasswordConfirm.addClass(invalidInputStyle);
         invalidInput = true;
     }
 
     // Make sure that all the required fields have values.
     if (invalidInput) {
-        this.$ctnErr.html("<p>Please enter all the required fields.</p>");
-        this.$ctnErr.addClass("bi-ctn-err").slideDown();
+        me.$ctnErr.html("<p>Error: Please enter all the required fields!</p>");
+        me.$ctnErr.addClass("bi-ctn-err").slideDown();
+		$('html, body').animate({ scrollTop: 0 }, 'slow');
         return;
     }
 
-    if (!this.emailAddressIsValid(emailAddress)) {
-        this.$ctnErr.html("<p>Please enter a valid email address.</p>");
-        this.$ctnErr.addClass("bi-ctn-err").slideDown();
-        this.$txtEmailAddress.addClass(invalidInputStyle);
+    if (!me.emailAddressIsValid(emailAddress)) {
+        me.$ctnErr.html("<p>Error: Please enter a valid email address!</p>");
+        me.$ctnErr.addClass("bi-ctn-err").slideDown();
+        me.$txtEmailAddress.addClass(invalidInputStyle);
+		$('html, body').animate({ scrollTop: 0 }, 'slow');
         return;
     }
 
-    if (!this.passwordsMatch(password, passwordConfirm)) {
-        this.$ctnErr.html("<p>Your passwords don't match.</p>");
-        this.$ctnErr.addClass("bi-ctn-err").slideDown();
-        this.$txtPassword.addClass(invalidInputStyle);
-        this.$txtPasswordConfirm.addClass(invalidInputStyle);
+    if (!me.passwordsMatch(password, passwordConfirm)) {
+        me.$ctnErr.html("<p>Error: Your passwords don't match!</p>");
+        me.$ctnErr.addClass("bi-ctn-err").slideDown();
+        me.$txtPassword.addClass(invalidInputStyle);
+        me.$txtPasswordConfirm.addClass(invalidInputStyle);
+		$('html, body').animate({ scrollTop: 0 }, 'slow');
+        return;
+    }
+	
+	if (!me.passwordIsComplexLength(password)) {
+        me.$ctnErr.html("<p>Error: Password must contain at least six(6) characters!</p>");
+        me.$ctnErr.addClass("bi-ctn-err").slideDown();
+        me.$txtPassword.addClass(invalidInputStyle);
+        me.$txtPasswordConfirm.addClass(invalidInputStyle);
+		$('html, body').animate({ scrollTop: 0 }, 'slow');
+        return;
+    }
+	
+	if (!me.passwordIsComplexSmallLetter(password)) {
+        me.$ctnErr.html("<p>Error: Password must contain at least one lowercase letter (a-z)!</p>");
+        me.$ctnErr.addClass("bi-ctn-err").slideDown();
+        me.$txtPassword.addClass(invalidInputStyle);
+        me.$txtPasswordConfirm.addClass(invalidInputStyle);
+		$('html, body').animate({ scrollTop: 0 }, 'slow');
+        return;
+    }
+	
+	if (!me.passwordIsComplexCapitalLetter(password)) {
+        me.$ctnErr.html("<p>Error: Password must contain at least one uppercase letter (A-Z)!</p>");
+        me.$ctnErr.addClass("bi-ctn-err").slideDown();
+        me.$txtPassword.addClass(invalidInputStyle);
+        me.$txtPasswordConfirm.addClass(invalidInputStyle);
+		$('html, body').animate({ scrollTop: 0 }, 'slow');
         return;
     }
 
-    if (!this.passwordIsComplex(password)) {
-        // TODO: Use error message to explain password rules.
-        this.$ctnErr.html("<p>Your password is very easy to guess.  Please try a more complex password.</p>");
-        this.$ctnErr.addClass("bi-ctn-err").slideDown();
-        this.$txtPassword.addClass(invalidInputStyle);
-        this.$txtPasswordConfirm.addClass(invalidInputStyle);
+    if (!me.passwordIsComplexNumber(password)) {
+        me.$ctnErr.html("<p>Error: Password must contain at least one number (0-9)!</p>");
+        me.$ctnErr.addClass("bi-ctn-err").slideDown();
+        me.$txtPassword.addClass(invalidInputStyle);
+        me.$txtPasswordConfirm.addClass(invalidInputStyle);
+		$('html, body').animate({ scrollTop: 0 }, 'slow');
         return;
     }
 
     $.ajax({
         type: 'POST',
         url: BookIt.Settings.signUpUrl,
-        data: "email=" + emailAddress + "&firstName=" + firstName + "&lastName=" + lastName + "&password=" + password + "&passwordConfirm=" + passwordConfirm,
-        success: function (resp) {
-
-            if (resp.success === true) {
-                $.mobile.navigate("#page-signup-succeeded");
-                return;
-            } else {
-                if (resp.extras.msg) {
-                    switch (resp.extras.msg) {
-                        case BookIt.ApiMessages.DB_ERROR:
-                        case BookIt.ApiMessages.COULD_NOT_CREATE_USER:
-                            // TODO: Use a friendlier error message below.
-                            this.$ctnErr.html("<p>Oops! BookIt had a problem and could not register you.  Please try again in a few minutes.</p>");
-                            this.$ctnErr.addClass("bi-ctn-err").slideDown();
-                            break;
-                        case BookIt.ApiMessages.EMAIL_ALREADY_EXISTS:
-                            this.$ctnErr.html("<p>The email address that you provided is already registered.</p>");
-                            this.$ctnErr.addClass("bi-ctn-err").slideDown();
-                            this.$txtEmailAddress.addClass(invalidInputStyle);
-                            break;
-                    }
-                }
-            }
+        data: "email=" + emailAddress + "&name=" + name + "&password=" + password + "&age=" + age + "&gender=" + gender,
+        success: function (message) {
+			console.log(message);
+			if(message == 1){
+				me.$ctnErr.html("<p>Error: Email already exists!</p>");
+				me.$ctnErr.addClass("bi-ctn-err").slideDown();
+				me.$txtPassword.addClass(invalidInputStyle);
+				me.$txtPasswordConfirm.addClass(invalidInputStyle);
+				$('html, body').animate({ scrollTop: 0 }, 'slow');
+				return;
+			}else{
+				$.mobile.navigate("#page-signup-succeeded");
+				return;
+			}
         },
-        error: function (e) {
-            console.log(e.message);
+        error: function () {
             // TODO: Use a friendlier error message below.
-            this.$ctnErr.html("<p>Oops! BookIt had a problem and could not register you.  Please try again in a few minutes.</p>");
-            this.$ctnErr.addClass("bi-ctn-err").slideDown();
+            me.$ctnErr.html("<p>Oops! FitCommunity had a problem and could not register you.  Please try again in a few minutes.</p>");
+            me.$ctnErr.addClass("bi-ctn-err").slideDown();
+			$('html, body').animate({ scrollTop: 0 }, 'slow');
         }
     });
 };
