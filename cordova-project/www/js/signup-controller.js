@@ -188,10 +188,10 @@ BookIt.SignUpController.prototype.onSignupCommand = function () {
 
     $.ajax({
         type: 'POST',
-        url: BookIt.Settings.signUpUrl,
+        url: 'http://fit.comuf.com/register.php',
         data: "email=" + emailAddress + "&name=" + name + "&password=" + password + "&age=" + age + "&gender=" + gender,
         success: function (message) {
-			console.log(message);
+			//console.log(message);
 			if(message == 1){
 				me.$ctnErr.html("<p>Error: Email already exists!</p>");
 				me.$ctnErr.addClass("bi-ctn-err").slideDown();
@@ -204,9 +204,9 @@ BookIt.SignUpController.prototype.onSignupCommand = function () {
 				return;
 			}
         },
-        error: function (e) {
+        error: function () {
             // TODO: Use a friendlier error message below.
-            me.$ctnErr.html(e.message);
+            me.$ctnErr.html("<p>Oops! FitCommunity had a problem and could not register you.  Please try again in a few minutes.</p>");
             me.$ctnErr.addClass("bi-ctn-err").slideDown();
 			$('html, body').animate({ scrollTop: 0 }, 'slow');
         }
