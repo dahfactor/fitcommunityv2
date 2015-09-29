@@ -13,9 +13,6 @@ $password = "ece211";
 $con = mysql_connect($server, $username, $password) or die ("Could not connect: " . mysql_error());
 mysql_select_db($database, $con);
 
-$response_array['dberror'] = mysql_error();  
-echo json_encode($response_array);
-
 $name = mysql_real_escape_string($_POST["name"]);
 $email = mysql_real_escape_string($_POST["email"]);
 $age = mysql_real_escape_string($_POST["age"]);

@@ -7,8 +7,9 @@
     <author email="miamicoder@gmail.com" href="http://miamicoder.com">
         
     </author>
-    <content src="www/index.html" />
+    <content src="/www/index.html" />
     <access origin="*" />
+	<access origin="http://fit.comuf.com" />
 
     <preference name="StatusBarOverlaysWebView" value="false"></preference>
     <preference name="StatusBarBackgroundColor" value="#662d91"></preference>
@@ -16,6 +17,7 @@
 	<gap:plugin name="org.apache.cordova-plugin-whitelist" source="npm" />
 	
 	<plugin name="cordova-plugin-whitelist" version="1" />
+	<allow-navigation href="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
