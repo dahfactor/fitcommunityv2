@@ -189,9 +189,12 @@ BookIt.SignUpController.prototype.onSignupCommand = function () {
     $.ajax({
         type: 'POST',
         url: BookIt.Settings.signUpUrl,
+		crossDomain: true,
+		cache: false,
         data: "email=" + emailAddress + "&name=" + name + "&password=" + password + "&age=" + age + "&gender=" + gender,
         success: function (data) {
 			console.log(data.status);
+			console.log(data.dberror);
 			if(data.status == 1){
 				me.$ctnErr.html("<p>Error: Email already exists!</p>");
 				me.$ctnErr.addClass("bi-ctn-err").slideDown();
@@ -206,10 +209,12 @@ BookIt.SignUpController.prototype.onSignupCommand = function () {
         },
         error: function (data) {
 			console.log(data.status);
+			console.log(data.dberror);
             // TODO: Use a friendlier error message below.
             me.$ctnErr.html(data.status);
             me.$ctnErr.addClass("bi-ctn-err").slideDown();
 			$('html, body').animate({ scrollTop: 0 }, 'slow');
         }
     });
+	return false;
 };
