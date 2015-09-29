@@ -9,12 +9,9 @@
     </author>
     <content src="/www/index.html" />
     <access origin="*" />
-	<access origin="http://fit.comuf.com" />
 
     <preference name="StatusBarOverlaysWebView" value="false"></preference>
     <preference name="StatusBarBackgroundColor" value="#662d91"></preference>
-	
-	<gap:plugin name="org.apache.cordova-plugin-whitelist" source="npm" />
 	
 	<plugin name="cordova-plugin-whitelist" version="1" />
 	<allow-navigation href="*" />
