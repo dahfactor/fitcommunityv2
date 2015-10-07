@@ -14,5 +14,12 @@
     <preference name="StatusBarBackgroundColor" value="#662d91"></preference>
 	
 	<gap:plugin name="cordova-plugin-whitelist" source="npm" />
+	
+	<!-- Allow links to example.com -->
+	<allow-navigation href="http://fit.comuf.com/*" />
+	
+	<!-- Allow links to example.com to open in a browser -->
+	<allow-intent href="http://fit.comuf.com/*" />
+	
 	<access origin="*" />
 </widget>
