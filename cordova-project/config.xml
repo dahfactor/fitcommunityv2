@@ -7,19 +7,17 @@
     <author email="miamicoder@gmail.com" href="http://miamicoder.com">
         
     </author>
-    <content src="www/index.html" />
+    <content src="index.html" />
 
 	<preference name='phonegap-version' value='cli-5.1.1' />
     <preference name="StatusBarOverlaysWebView" value="false"></preference>
     <preference name="StatusBarBackgroundColor" value="#662d91"></preference>
 	
+	<!--<plugin name="cordova-plugin-whitelist" version="1" /> -->
 	<gap:plugin name="cordova-plugin-whitelist" source="npm" />
 	
-	<!-- Allow links to example.com -->
-	<allow-navigation href="http://dfactor.impactsw.com/app/*" />
-	
-	<!-- Allow links to example.com to open in a browser -->
-	<allow-intent href="http://dfactor.impactsw.com/app/*" />
-	
 	<access origin="*" />
+	<allow-navigation href="*" />
+	<allow-intent href="*" />
+	
 </widget>
