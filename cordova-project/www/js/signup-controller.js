@@ -190,6 +190,7 @@ BookIt.SignUpController.prototype.onSignupCommand = function () {
         type: 'POST',
         url: BookIt.Settings.signUpUrl,
 		crossDomain: true,
+		cache : false,
         data: "email=" + emailAddress + "&name=" + name + "&password=" + password + "&age=" + age + "&gender=" + gender,
         success: function (data) {
 			console.log(data.status);
