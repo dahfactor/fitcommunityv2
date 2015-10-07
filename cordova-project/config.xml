@@ -16,7 +16,7 @@
 	<!--<plugin name="cordova-plugin-whitelist" version="1" /> -->
 	<gap:plugin name="cordova-plugin-whitelist" source="npm" />
 	
-	<access origin="*" />
+	<access origin="*" subdomains="true"/>
 	<allow-navigation href="*" />
 	<allow-intent href="*" />
 	
