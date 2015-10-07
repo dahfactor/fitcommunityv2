@@ -5,10 +5,10 @@ header('Content-type: application/json');
 //$password = "";
 //$database = "fitcommunity";
 
-$server = "mysql5.000webhost.com";
-$database = "a7881654_fitcom";
-$username = "a7881654_root";
-$password = "ece211";
+$server = "mysql.dfactor.impactsw.com";
+$database = "itr_dfactor";
+$username = "dfactor";
+$password = "daryl2@12";
 
 $con = mysql_connect($server, $username, $password) or die ("Could not connect: " . mysql_error());
 mysql_select_db($database, $con);

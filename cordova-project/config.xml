@@ -16,10 +16,10 @@
 	<gap:plugin name="cordova-plugin-whitelist" source="npm" />
 	
 	<!-- Allow links to example.com -->
-	<allow-navigation href="http://fit.comuf.com/*" />
+	<allow-navigation href="http://dfactor.impactsw.com/app/*" />
 	
 	<!-- Allow links to example.com to open in a browser -->
-	<allow-intent href="http://fit.comuf.com/*" />
+	<allow-intent href="http://dfactor.impactsw.com/app/*" />
 	
 	<access origin="*" />
 </widget>
